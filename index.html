@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MyLove💜</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Playfair Display', serif;
+}
+
+body{
+  height:100vh;
+  background:
+    radial-gradient(circle at top,#9d4edd,transparent 40%),
+    radial-gradient(circle at bottom,#3c096c,transparent 40%),
+    linear-gradient(180deg,#10002b,#240046,#3c096c);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  color:#f5e9ff;
+}
+
+/* floating lights */
+.light{
+  position:absolute;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.35);
+  animation:float 14s linear infinite;
+}
+@keyframes float{
+  from{transform:translateY(110vh);opacity:0;}
+  to{transform:translateY(-10vh);opacity:1;}
+}
+
+/* container */
+.wrapper{
+  width:94%;
+  max-width:440px;
+  padding:40px 32px;
+  border-radius:32px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 60px 120px rgba(0,0,0,0.75);
+  text-align:center;
+  animation:rise 1.2s ease;
+}
+@keyframes rise{
+  from{opacity:0;transform:translateY(60px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.hide{display:none;}
+
+h1{
+  font-size:26px;
+  margin-bottom:14px;
+}
+
+p{
+  font-size:16px;
+  line-height:1.8;
+  opacity:.92;
+}
+
+button{
+  margin-top:18px;
+  padding:14px 36px;
+  border:none;
+  border-radius:40px;
+  font-size:15px;
+  cursor:pointer;
+  color:white;
+  transition:transform .3s ease;
+}
+button:hover{transform:scale(1.05);}
+
+.primary{
+  background:linear-gradient(135deg,#ffd166,#c77dff);
+  box-shadow:0 18px 45px rgba(255,209,102,0.4);
+}
+
+.yes{
+  background:linear-gradient(135deg,#ff4ecd,#ff2f92);
+}
+
+.no{
+  background:rgba(255,255,255,.25);
+  position:absolute;
+}
+
+/* image frame */
+.frame{
+  width:100%;
+  height:280px;
+  margin-top:16px;
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 25px 55px rgba(0,0,0,0.6);
+  animation:fadeZoom 1.2s ease;
+}
+@keyframes fadeZoom{
+  from{opacity:0;transform:scale(0.95);}
+  to{opacity:1;transform:scale(1);}
+}
+
+.frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* yes/no zone */
+.zone{
+  position:relative;
+  height:120px;
+  margin-top:10px;
+}
+
+/* credits */
+.credits{
+  margin-top:20px;
+  font-size:15px;
+  opacity:.85;
+}
+.creator{
+  margin-top:10px;
+  font-size:14px;
+  opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="bgAudio" loop>
+  <source src="music.mpeg" type="audio/mpeg">
+</audio>
+
+<div class="wrapper">
+
+  <!-- SCREEN 1 -->
+  <div id="s1">
+    <h1>Welcome</h1>
+    <p>This isn’t a website.<br>It’s a feeling.</p>
+    <button class="primary" onclick="go(1)">Enter</button>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div id="s2" class="hide">
+    <h1>Welcome Ma'am ji</h1>
+    <p>Only the right heart can go further.</p>
+    <input id="pwd" type="password" placeholder="Enter password"
+      style="width:100%;padding:14px;border-radius:30px;border:none;">
+    <button class="primary" onclick="login()">Continue</button>
+    <div id="err" style="margin-top:10px;color:#ffb3c1;"></div>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div id="s3" class="hide">
+    <h1>My heart has one question</h1>
+    <p>Will you be my Valentine?</p>
+    <div class="zone">
+      <button class="yes" onclick="yesClicked()">YES</button>
+      <button class="no" id="noBtn" onclick="moveNo()">NO</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 4 : NOTE -->
+  <div id="s4" class="hide">
+    <h1>From My Heart 💜</h1>
+    <p>
+      Thank you for choosing yes.<br>
+I promise to choose you,<br>
+with care, respect, and a full heart.
+    </p>
+    <button class="primary" onclick="go(4)">See Our Moments</button>
+  </div>
+
+  <!-- SCREEN 5 : IMAGE 1 -->
+  <div id="s5" class="hide">
+    <h1>Where it Started 💜</h1>
+    <div class="frame">
+      <img src="pree.jpeg">
+    </div>
+    <button class="primary" onclick="go(5)">Continue</button>
+  </div>
+
+  <!-- SCREEN 6 : IMAGE 2 -->
+  <div id="s6" class="hide">
+    <h1>Moment 💖</h1>
+    <div class="frame">
+      <img src="img1.jpeg">
+    </div>
+    <button class="primary" onclick="go(6)">Next</button>
+  </div>
+
+  
+<!-- SCREEN 7 : IMAGE 3 -->
+<div id="s7" class="hide">
+  <h1>Another Memory 💜</h1>
+  <div class="frame">
+    <img src="img2.jpeg">
+  </div>
+  <button class="primary" onclick="go(7)">Okay</button>
+</div>
+
+<!-- SCREEN 8 : IMAGE 4 -->
+<div id="s8" class="hide">
+  <h1>One More Moment 💖</h1>
+  <div class="frame">
+    <img src="img3.jpeg">
+  </div>
+   <button class="primary" onclick="go(8)">One More</button>
+</div>
+
+  <!-- SCREEN 9 : CREDITS -->
+  <div id="s9" class="hide">
+    <h1>Thank You 💜</h1>
+    <div class="credits">
+      I don’t know when it happened,
+but somewhere between small conversations and quiet moments,
+you became important to me.
+With you, things feel lighter.
+Even silence feels comfortable,
+and smiles come naturally.
+I don’t promise perfection,
+but I promise honesty, effort,
+and a heart that chooses you every day.
+Through good days and hard ones,
+through laughter and misunderstandings,
+I want to walk beside you, not ahead, not behind.
+If love is about care, respect, and choosing each other again and again,
+then this is me choosing you.
+    </div>
+    <div class="creator">
+      Lot's of love ✨<br>
+      —  <strong>Mr.PREETAM</strong>
+    </div>
+    <button class="primary" onclick="go(9)">One last</button>
+  </div>
+
+<!-- SCREEN : CREATOR BLESSINGS -->
+<div id="s10" class="hide">
+  <h1>Thank You✨</h1>
+
+ 
+
+  <div style="margin-top:16px; font-size:14px; opacity:.75;">
+    
+  </div>
+</div>
+  
+</div>
+
+<script>
+const PASSWORD="2011";
+const audio=document.getElementById("bgAudio");
+
+function go(n){
+  document.getElementById("s"+n).classList.add("hide");
+  document.getElementById("s"+(n+1)).classList.remove("hide");
+}
+
+function login(){
+  if(pwd.value===PASSWORD){go(2);}
+  else err.innerText="Not the right key ,think once where we started";
+}
+
+function yesClicked(){
+  audio.volume=0.5;
+  audio.play().catch(()=>{});
+  go(3);
+}
+
+function moveNo(){
+  const b=document.getElementById("noBtn");
+  b.style.left=Math.random()*200+"px";
+  b.style.top=Math.random()*80+"px";
+}
+
+/* floating lights */
+for(let i=0;i<22;i++){
+  const l=document.createElement("div");
+  l.className="light";
+  l.style.left=Math.random()*100+"vw";
+  l.style.animationDuration=(10+Math.random()*10)+"s";
+  document.body.appendChild(l);
+}
+</script>
+
+</body>
+</html>
